@@ -57,7 +57,7 @@ export default class Card extends Component {
     return (
       <div style={{background: this.color}}
            className={`card ${typingClass}`}>
-        <span className="text">{value.substring(0, visibleChars)}</span>
+        <span className="text">{value.substring(0, visibleChars)}<span className="cursor">|</span></span>
       </div>
     );
   }

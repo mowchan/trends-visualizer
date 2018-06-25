@@ -62,13 +62,13 @@
   transition: opacity 800ms ease 200ms;
 }
 
-.card:after {
-  content: '|';
+.card .cursor {
   color: #fff;
   font-weight: 100;
+  white-space: nowrap;
 }
 
-.card:not(.typing):after {
+.card:not(.typing) .cursor {
   animation: 1s blink step-end infinite;
 }
 
