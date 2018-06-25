@@ -55,8 +55,7 @@ export default class Card extends Component {
     const typingClass = isTyping ? 'typing' : '';
 
     return (
-      <div style={{background: this.color}}
-           className={`card ${typingClass}`}>
+      <div style={{background: this.color}} className={`card ${typingClass}`}>
         <span className="text">{value.substring(0, visibleChars)}<span className="cursor">|</span></span>
       </div>
     );
