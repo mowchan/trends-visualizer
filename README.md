@@ -1,5 +1,5 @@
 # trends-visualizer
 
-`npm install`
+`yarn install`
 
 `yarn start`
