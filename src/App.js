@@ -57,8 +57,6 @@ export default class App extends Component {
     const columnWidth = 100 / columns;
     const rowWidth = 100 / rows;
 
-    console.log('getGridStyles', gridSize);
-
     return {
       gridTemplateColumns: `repeat(${columns}, ${columnWidth}vw)`,
       gridTemplateRows: `repeat(${rows}, ${rowWidth}vh)`
