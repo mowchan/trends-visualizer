@@ -33,8 +33,6 @@
 .tiles {
   display: grid;
   height: 100vh;
-  grid-template-columns: repeat(5, 20vw);
-  grid-template-rows: repeat(5, 20vh);
 }
 
 .tile {

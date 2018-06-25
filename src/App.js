@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Tile} from './components';
+import {DataSetSelect, Tile} from './components';
 import './app.css';
 
 export default class App extends Component {
@@ -9,15 +9,60 @@ export default class App extends Component {
     tiles: []
   };
 
-  componentDidMount() {
-    this.initializeTiles();
+  componentWillMount() {
+    this.setGridSize();
   }
 
-  changeDataSet = ({target}) => {
+  componentDidMount() {
+    this.initializeTiles();
+    window.addEventListener('resize', this.setGridSize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setGridSize);
+  }
+
+  setGridSize = () => {
+    let columns = 5;
+    let rows = 5;
+
+    if (window.innerWidth < 400) {
+      columns = 1;
+      rows = 2;
+    } else if (window.innerWidth < 600) {
+      columns = 2;
+      rows = 3;
+    } else if (window.innerWidth < 1000) {
+      columns = 3;
+      rows = 3;
+    } else if (window.innerWidth < 1200) {
+      columns = 4;
+      rows = 4;
+    }
+
+    return this.setState({gridSize: [columns, rows]}, this.initializeTiles);
+  };
+
+  onChangeDataSet = ({target}) => {
     this.setState({
       dataSet: target.value,
       tiles: []
     }, this.initializeTiles);
+  };
+
+  getGridStyles = () => {
+    const {gridSize} = this.state;
+    const columns = gridSize[0];
+    const rows = gridSize[1];
+    const columnWidth = 100 / columns;
+    const rowWidth = 100 / rows;
+
+    console.log('getGridStyles', gridSize);
+
+    return {
+      gridTemplateColumns: `repeat(${columns}, ${columnWidth}vw)`,
+      gridTemplateRows: `repeat(${rows}, ${rowWidth}vh)`
+    };
   };
 
   initializeTiles = () => {
@@ -39,17 +84,8 @@ export default class App extends Component {
 
     return (
       <div className="app">
-        <div className="dataSet">
-          Showing random selections from
-          <div className="dataSetSelect">
-            <select defaultValue={dataSet} onChange={this.changeDataSet}>
-              <option value="animals">Animal Names</option>
-              <option value="plants">Plant Families</option>
-            </select>
-          </div>
-          .
-        </div>
-        <div className="tiles">
+        <DataSetSelect dataSet={dataSet} onChange={this.onChangeDataSet} />
+        <div className="tiles" style={this.getGridStyles()}>
           {tiles}
         </div>
       </div>
